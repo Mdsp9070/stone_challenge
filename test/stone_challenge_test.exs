@@ -71,4 +71,21 @@ defmodule StoneChallengeTest do
       assert total_price(items) == sum_map(billing) |> Kernel.*(100) |> round()
     end
   end
+
+  test "let's try to read from file!" do
+    path = Path.expand("./example.yaml")
+
+    {:ok, %{"entries" => %{"emails" => emails, "items" => to_parse_items}}} =
+      YamlElixir.read_from_file(path)
+
+    items =
+      to_parse_items
+      |> Map.to_list()
+      |> Enum.map(fn {qtd, v} -> {qtd, round(v * 100)} end)
+
+    {:ok, billing} = StoneChallenge.main({:ok, items, emails})
+
+    assert map_size(billing) == length(emails)
+    assert total_price(items) == sum_map(billing) |> Kernel.*(100) |> round()
+  end
 end

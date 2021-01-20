@@ -22,6 +22,7 @@ defmodule StoneChallenge.MixProject do
   defp deps do
     [
       {:faker, "~> 0.16.0"},
+      {:yaml_elixir, "~> 2.5.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
     ]
   end

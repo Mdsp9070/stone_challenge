@@ -20,6 +20,10 @@ defmodule Mix.Tasks.Init do
 
             System.halt(1)
 
+          is_binary(parsed[:file]) ->
+            parsed[:file]
+            |> parse_file()
+
           is_nil(parsed[:items]) or is_nil(parsed[:emails]) ->
             default_error()
 
@@ -77,8 +81,8 @@ defmodule Mix.Tasks.Init do
 
   defp parse_args(args) do
     opts = [
-      strict: [items: :integer, emails: :integer, help: :boolean],
-      aliases: [i: :items, e: :emails, h: :help]
+      strict: [items: :integer, emails: :integer, help: :boolean, file: :string],
+      aliases: [i: :items, e: :emails, h: :helpm, f: :file]
     ]
 
     case OptionParser.parse(args, opts) do
@@ -89,6 +93,27 @@ defmodule Mix.Tasks.Init do
 
       {[], _, invalid} ->
         invalid |> unknown_opts() |> default_error()
+    end
+  end
+
+  defp parse_file(file_path) do
+    file_path
+    |> Path.expand()
+    |> YamlElixir.read_from_file()
+    |> case do
+      {:ok, %{"entries" => %{"emails" => emails, "items" => to_parse_items}}} ->
+        items =
+          to_parse_items
+          |> Map.to_list()
+          |> Enum.map(fn {qtd, v} -> {qtd, round(v * 100)} end)
+
+        {:ok, items, emails}
+
+      {:error, %{message: desc}} ->
+        :parse_error
+        |> error(desc)
+
+        System.halt(1)
     end
   end
 
@@ -129,6 +154,9 @@ defmodule Mix.Tasks.Init do
     yellow("OPTIONS") |> IO.puts()
     green("    -h, --help") |> IO.puts()
     IO.puts("            Shows this help section")
+
+    green("    -f, --file") |> IO.puts()
+    IO.puts("            Provide a file to parse arguments")
 
     green("    -i, --items") |> IO.puts()
     IO.puts("            Generate a given number of items to use")

@@ -1,0 +1,9 @@
+# the items key means -> qtd: price
+entries:
+  items:
+    1: 2.0
+    3: 3.0
+    6: 9.2
+  emails:
+    - aaa@gmail.com
+    - bbbb@bol.com
