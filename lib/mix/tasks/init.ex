@@ -102,6 +102,12 @@ defmodule Mix.Tasks.Init do
     |> YamlElixir.read_from_file()
     |> case do
       {:ok, %{"entries" => %{"emails" => emails, "items" => to_parse_items}}} ->
+        if is_nil(emails) or is_nil(to_parse_items) do
+          default_error()
+
+          System.halt(1)
+        end
+
         items =
           to_parse_items
           |> Map.to_list()
