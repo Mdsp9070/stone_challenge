@@ -42,7 +42,7 @@ Exemplo:
 $ ls
 example.yaml
 
-$ mix init -f .example.yaml
+$ mix init -f ./example.yaml
 <result>
 ```
 

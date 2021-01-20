@@ -15,12 +15,12 @@ unit-test:
   RUN mix test
 
 setup-base:
-   ARG ELIXIR=1.11.2
-   ARG OTP=23.1.1
+   ARG ELIXIR=1.11.3
+   ARG OTP=23.2.2
    FROM hexpm/elixir:$ELIXIR-erlang-$OTP-alpine-3.12.0
    RUN apk add --no-progress --update build-base
    ENV ELIXIR_ASSERT_TIMEOUT=10000
-   WORKDIR /bank
+   WORKDIR /stone_challenge
 
 test-setup:
    FROM +setup-base
@@ -33,3 +33,4 @@ test-setup:
    RUN mix local.hex --force
    RUN mix do deps.get, deps.compile
    COPY --dir lib test ./
+   COPY example.yaml ./
