@@ -14,6 +14,12 @@ qualquer comando deverá começar com: `mix init` e então as opções.
 
 Enfim, vamos ao que interessa:
 
+## Requerimentos
+
+- Elixir
+- Clonar o repositório
+- Rodar `mix do deps.get, deps.compile`
+
 Existem 2 formas de testar a aplicaçao ->
 
 - Dando um arquivo de entrada com os dados
