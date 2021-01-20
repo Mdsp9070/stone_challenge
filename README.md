@@ -1,5 +1,7 @@
 # StoneChallenge
 
+![build](https://github.com/Mdsp9070/stone_challenge/workflows/actions/badge.svg?branch=main)
+
 Olá! Como estão vocês? Primeiramente gostaria de dizer que me diverti muito fazendo o desafio, pois,
 apesar de ter começado recentemente em Elixir, consegui aprender bastante coisa! Até porque
 vocês juntaram 2 coisas que amo: CLIs e matemática haha!
