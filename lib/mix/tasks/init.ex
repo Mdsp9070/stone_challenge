@@ -42,9 +42,7 @@ defmodule Mix.Tasks.Init do
       {:error, :default_error} ->
         System.halt(1)
     end
-
-    # |> init_seeds()
-    # |> StoneChallenge.main()
+    |> StoneChallenge.main()
   end
 
   defp parse_emails(emails_num) do
@@ -70,10 +68,9 @@ defmodule Mix.Tasks.Init do
 
     price_items =
       for i <- 1..items_num, into: [] do
-        IO.gets("price for item#{1}: ")
+        IO.gets("price for item#{i}: ")
         |> String.trim()
         |> String.to_float()
-        |> (&round(&1 * 100)).()
       end
 
     Enum.zip([items, qtd_items, price_items])
