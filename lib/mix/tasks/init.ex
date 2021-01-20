@@ -57,8 +57,6 @@ defmodule Mix.Tasks.Init do
   end
 
   defp parse_items(items_num) do
-    items = for _ <- 1..items_num, into: [], do: Faker.Commerce.product_name()
-
     qtd_items =
       for i <- 1..items_num, into: [] do
         IO.gets("qtd for item#{i}: ")
@@ -71,9 +69,10 @@ defmodule Mix.Tasks.Init do
         IO.gets("price for item#{i}: ")
         |> String.trim()
         |> String.to_float()
+        |> (&round(&1 * 100)).()
       end
 
-    Enum.zip([items, qtd_items, price_items])
+    Enum.zip(qtd_items, price_items)
   end
 
   defp parse_args(args) do
